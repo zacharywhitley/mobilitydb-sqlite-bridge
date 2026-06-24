@@ -2,5 +2,4 @@
 
 //! Window-function registration (sqlite3_create_window_function).
 
-
 // TODO: emit sqlite3_create_window_function calls.

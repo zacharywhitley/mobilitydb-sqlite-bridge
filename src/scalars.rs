@@ -38,1554 +38,9294 @@ use crate::registry;
 /// Variadic functions (arity = -1) are emitted with rusqlite's
 /// `arity = -1` convention.
 pub fn register_all(conn: &Connection) -> Result<()> {
-    register_scalar(conn, "acceleration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "angle", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "angular_diff", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "average_frechet_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "avg_position", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "avg_sampling_rate_us", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bearing", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bearing_after", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bearing_before", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bidirectional", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_as_of", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_count_current", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_count_superseded", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_current", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_ever_valid_during_count", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_history_at_count", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_inst_new", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_seq_from_inst", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_transaction_extent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_valid_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_valid_during_count", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_bool_valid_extent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_as_of", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_count_current", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_count_superseded", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_current", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_ever_valid_during_count", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_history_at_count", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_inst_new", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_seq_from_inst", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_transaction_extent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_valid_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_valid_during_count", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_float_valid_extent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_as_of", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_count_current", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_count_superseded", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_current", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_ever_valid_during_count", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_history_at_count", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_inst_new", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_seq_from_inst", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_transaction_extent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_valid_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_valid_during_count", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_int_valid_extent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_as_of", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_count_current", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_count_superseded", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_current", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_ever_valid_during_count", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_history_at_count", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_inst_new", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_seq_from_inst", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_transaction_extent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_valid_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_valid_during_count", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "bitemporal_text_valid_extent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "center_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "center_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "centroid_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "centroid_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "cluster_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "cluster_id", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_contains_span", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_expand", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_make", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_span_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_spanset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_spanset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_spanset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_spanset_num_spans", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_spanset_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_spanset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "date_spanset_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_from_int", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_gaps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_nth", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_successor", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_to_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dateset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_contains_span", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_expand", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_make", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespan_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_from_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_num_spans", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "datespanset_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dbscan_cluster_points", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "distance", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dtw_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "dtw_distance_normalized", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "duration_us", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "edr_distance", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "end", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "end_ts", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "end_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "end_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_contains_span", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_expand", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_make", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_span_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_spanset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_spanset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_spanset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_spanset_num_spans", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_spanset_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_spanset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "float_spanset_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_gaps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_is_disjoint", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_is_subset", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_nth", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_scale", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_to_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_bucket_list", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_contains_span", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_expand", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_make", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_midpoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_scale", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspan_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_from_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_num_spans", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "floatspanset_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "frechet_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "gap_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "geodetic_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "geometry", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "hausdorff_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "indexed_interval_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "indexed_intervals_concat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "indexed_point_xy_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "indexed_point_xyz_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "indexed_points_xy_concat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "indexed_points_xyz_concat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_contains_span", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_expand", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_make", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_span_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_spanset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_spanset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_spanset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_spanset_num_spans", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_spanset_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_spanset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "int_spanset_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_gaps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_is_disjoint", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_is_subset", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_nth", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_scale", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_to_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_bucket_list", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_contains_span", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_expand", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_make", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_scale", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspan_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_from_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_num_spans", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "intspanset_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "item", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "kmeans_cluster_points", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "latitude", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "lcss_distance", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "lcss_similarity", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "linear", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "longitude", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "max", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "max_gap_us", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "min", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "mobilitydb_blob_cmp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "mobilitydb_blob_eq", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "mobilitydb_blob_ge", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "mobilitydb_blob_gt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "mobilitydb_blob_le", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "mobilitydb_blob_lt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "network_coverage", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "network_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "network_distance_via_edges", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "network_distance_via_graph", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "network_graph_build_from_edges", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "network_shortest_path", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "network_shortest_path_via_edges", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "network_shortest_path_via_graph", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nodes", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "npoint_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "npoint_eq", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "npoint_make", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "npoint_new", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "npoint_position", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "npoint_route", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "npoint_same_route", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "npoint_to_point2d", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_end_pos", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_intersection", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_make", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_midpoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_new", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_route", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_route_eq", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_start_pos", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "nsegment_union", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "orientation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "pair_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "perimeter", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "period_bucket_list", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "period_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "period_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "periodset_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "periodset_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "periodset_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "periodset_intersection", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "periodset_minus", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "periodset_num_periods", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "periodset_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "periodset_union", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "point_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "point_transform", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "proj", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "proj_is_valid_crs", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "proj_transform", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "proj_transform_sequence", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "quality_score", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "radius", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "route_id", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "routes", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "score", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "significant", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "source", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "source_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "source_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "speed_after", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "speed_before", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "start", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "start_ts", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "start_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "start_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_center_time", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_center_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_center_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_contained_by", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_contains_point", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_expand_spatial", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_expand_temporal", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_from_spatial", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_from_temporal", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_from_tgeompoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_height", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_make", 6, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_same", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_scale_spatial", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_scale_temporal", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_shift_spatial", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_shift_temporal", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_spatial_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_spatially_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_temporal_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_temporally_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_tmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_tmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_transform", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_xmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_xmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_ymax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stbox_ymin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stepwise", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stindex_count_in_stbox", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stindex_entries_concat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "stindex_entry_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "target", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "target_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "target_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_always_false", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_always_true", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_and", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_and_all", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_at_false", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_at_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_at_true", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_at_value", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_count_changes", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_count_false", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_count_true", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_duration_false", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_duration_true", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_end_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_ever_false", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_ever_true", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_from_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_from_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_implies", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_instant_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_instant_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_instant_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_lower_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_minus_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_minus_value", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_n_changes", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_nand", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_nor", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_not", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_or", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_or_all", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_start_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_timestamp_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_to_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_to_json", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_to_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_to_tint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_upper_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_value_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_value_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_when_false", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_when_true", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_xnor", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbool_xor", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbox_expand", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbox_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbox_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tbox_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_always_contains_point", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_area_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_avg_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_avg_radius", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_center_path_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_contains_point_at", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_ever_contains_point", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_expand_radii", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_get_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_get_center_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_get_center_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_get_radii", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_get_radius", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_inst_new", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_intersection", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_max_radius", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_min_radius", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_overlap_region", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_radius_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_scale_radii", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_seq_from_inst", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_swept_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_to_tgeompoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_total_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_union", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_value_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_x_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tcbuffer_y_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_at_periodset", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_at_tbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_at_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_during", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_finishes", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_follows", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_index_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_meets", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_minus_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_precedes", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_set_interpolation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "temporal_starts", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_is_disjoint", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_is_subset", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_is_superset", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_max", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_min", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_symdiff", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "textset_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_abs", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_acos", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_acosh", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_add", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_add_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_always_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_always_eq_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_always_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_always_gt_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_always_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_always_lt_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_anomaly_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_anomaly_count_iqr", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_asin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_asinh", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_at_max", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_at_min", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_at_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_at_range", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_at_tbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_at_value", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_at_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_atan", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_atan2", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_atanh", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_cbrt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ceil", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_clamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_coefficient_of_variation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_copysign", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_correlation", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_cos", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_cosh", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_covariance", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_cube", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_cumsum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_degrees", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_delete_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_delete_time", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_derivative", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_derivative_wit", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_detect_anomalies_iqr", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_detect_anomalies_moving_avg", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_detect_anomalies_zscore", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_detect_periodicity", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_detect_trend", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_detrend", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_diff", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_div", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_div_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_downsample", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ema", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_end_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_entropy", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ever_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ever_eq_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ever_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ever_gt_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ever_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ever_lt_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_exp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_exp2", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_expm1", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_exponential_smooth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_fill_gaps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_floor", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_forecast_linear", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_fract", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_from_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_from_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_gaussian_smooth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_hypot", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_insert", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_instant_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_instant_from_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_instant_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_instant_n_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_instant_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_integral", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_interpolation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_iqr", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_is_decreasing", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_is_increasing", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_kalman_smooth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_kurtosis", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_level_crossing_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_lift_between", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_lift_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_lift_ge", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_lift_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_lift_le", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_lift_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_lift_ne", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ln", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_ln1p", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_log10", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_log2", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_log_base", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_lower_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_max", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_max_element", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_max_scalar", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_max_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_max_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_max_value_wit", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_mean", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_median", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_merge", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_min", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_min_element", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_min_scalar", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_min_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_min_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_min_value_wit", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_minus_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_minus_range", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_minus_tbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_minus_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_minus_value", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_minus_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_mod_scalar", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_moving_average", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_mul", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_mul_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_n_level_crossings", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_n_peaks", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_n_valleys", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_n_zero_crossings", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_negate", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_normalize", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_num_anomalies", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_num_instants_wit", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_num_segments", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_pct", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_pct_change", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_peak_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_percentile", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_pow", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_precision", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_radians", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_range", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_recip", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_remove_outliers", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_resample_to_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_rolling_mean", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_rolling_stddev", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_rolling_variance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_round", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_sample_entropy", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_second_derivative", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_segments_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_intersection", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_minus", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_num_sequences", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_sequence_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_symdiff", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_seqset_value_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_set_interpolation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_shift_scale_time", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_sign", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_signum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_sin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_sinh", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_skewness", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_sqrt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_square", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_start_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_statistics", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_stddev", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_sub", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_sub_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_sum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tan", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tanh", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tbox_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tbox_tmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tbox_tmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tbox_value_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tbox_vmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tbox_vmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_correlation", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_covariance", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_ge", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_le", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_median", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_ne", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_stddev", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_temporal_variance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_time_bucket", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_time_bucket_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_time_split_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_time_split_nth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_timestamp_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_to_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_to_json", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_to_linear", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_to_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_to_stepwise", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_to_tint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_trend_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_trend_segment_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_trend_slope", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_trunc", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tunion_avg", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tunion_max", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tunion_min", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_tunion_sum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_twavg", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_twcount", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_twmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_twmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_twstddev", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_twsum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_twvariance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_update", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_upper_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_upsample", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_valley_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_value_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_value_bucket_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_value_bucket_index", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_value_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_value_split_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_value_split_nth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_variance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_wcount", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_when_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_when_ge", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_when_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_when_le", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_when_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_when_ne", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_wmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_wmedian", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_wmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_wpercentile", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_wsum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_zero_crossing_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloat_zscore", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloatrange_always_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloatrange_ever_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloatrange_from_bounds", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloatrange_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloatrange_midpoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloatrange_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tfloatrange_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_always_dwithin_point_geodetic", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_at_stbox", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_avg_speed_geodetic", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_azimuth_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_azimuth_geodetic", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_distance_to_point", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_distance_to_point_seq", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_dwithin_point_geodetic", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_end_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_getlat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_getlon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_instant_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_lat_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_latitude_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_length_geodetic", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_lon_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_longitude_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_max_distance_to_point_geodetic", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_min_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_min_distance_to_point_geodetic", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_minus_stbox", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_num_stops", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_num_turns", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_speed_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_speed_geodetic", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_start_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_tdisjoint_point_geodetic", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_tintersects_point_geodetic", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_to_tgeompoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeogpoint_value_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_always_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_at_spatial_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_at_spatial_intersects", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_at_spatial_within", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_avg_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_bounding_box", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_centroid", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_dominant_type", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_ever_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_ever_intersects", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_ever_within", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_get_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_get_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_is_homogeneous", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_max_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_min_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_simplify", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_tarea", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_tlength", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_to_tgeompoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_total_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_total_coords", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeometry_type", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_altitude", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_altitude_profile", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_altitude_range", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_at_point", 5, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_at_stbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_avg_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_avg_speed_3d", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_azimuth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_centroid", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_climb_rate", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_cumulative_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_descent_rate", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_distance_to_point", 5, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_dtw_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_elevation_gain", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_elevation_loss", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_end_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_frechet_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_from_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_getx", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_gety", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_getz", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_hausdorff_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_inst_new", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_instant_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_length_2d", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_length_3d", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_max_altitude", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_min_altitude", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_minus_point", 5, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_minus_stbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_pitch", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_planar_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_project_to_2d", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_seq_from_inst", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_simplify", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_speed_3d", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_start_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_stbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_to_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_total_climb", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_total_descent", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_value_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_value_at_x", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_value_at_y", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_value_at_z", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_vertical_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_x_coords", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_y_coords", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint3d_z_coords", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_acceleration_count", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_acceleration_event_count", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_acceleration_events", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_angular_difference", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_at_geometry", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_at_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_at_point", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_at_points", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_at_stbox", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_avg_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_azimuth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_bearing", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_bearing_seq", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_bounding_box", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_bounds_detailed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_buffer_polygon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_center_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_center_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_centroid", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_centroid_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_centroid_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_cluster_count_dbscan", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_cluster_dbscan", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_cluster_kmeans", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_convex_hull_area", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_cpa_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_cpa_time", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_cum_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_cumulative_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_delete_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_detect_loops", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_detect_stops", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_detect_turns", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_detect_u_turns", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_dir_seg_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_dir_stats", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_direction_segment_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_direction_stats", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_disjoint_polygon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_disjoint_trajectory", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_displacement", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_distance_at", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_distance_to_point", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_downsample", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_end_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_end_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_entirely_within", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_find_convoys", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_find_flocks", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_find_meetings", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_forecast_position", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_forecast_trajectory", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_from_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_from_geojson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_from_geojson_feature", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_from_gpx", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_from_hexewkb", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_from_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_from_web_mercator", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_full", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_full_analysis", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_geodetic_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_geodetic_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_getx", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_gety", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_height", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_instant_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_instant_from_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_instant_n_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_instant_n_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_instant_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_interpolation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_intersects_polygon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_intersects_trajectory", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_is_simple", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_is_stopped", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_kalman_smooth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_lower_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_make_simple", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_map_match", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_map_match_hmm", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_max_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_merge", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_min_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_min_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_minus_geometry", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_minus_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_minus_point", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_minus_points", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_minus_stbox", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_minus_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_movement_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_movement_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_movement_sum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_movement_summary", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_nearest_approach_between_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_nearest_approach_between_time", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_nearest_approach_distance", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_nearest_approach_instant_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_nearest_approach_instant_time", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_nearest_approach_time", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_nearest_point_on_trajectory", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_num_loops", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_num_segments", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_num_stops", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_num_turns", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_num_u_turns", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_offset_curve", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_overlaps_stbox", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_quality_metrics", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_quality_report", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_quality_score", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_remove_repeated_points", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_resample_to_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_intersection", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_minus", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_num_sequences", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_sequence_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_seqset_symdiff", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_shortest_line_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_simplify", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_simplify_semantic", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_simplify_to_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_simplify_visvalingam", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_sinuosity", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_speed_seg_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_speed_segment_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_speed_stats", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_speeds", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_speeds_seq", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_srid", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_start_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_start_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_stop_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_stop_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_stop_segment_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_stop_split_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tcontains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tcovers", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tcrosses_polygon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tdisjoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tdisjoint_polygon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tdwithin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_temporal_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tequals", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_time_bucket", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_time_split_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_timestamp_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tintersects", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tintersects_polygon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_3d", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_3d_with_altitudes", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_geojson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_geojson_feature", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_geojson_feature_collection", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_gpx", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_hexewkb", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_kml", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_tgeogpoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_to_web_mercator", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tortuosity", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_tortuosity_idx", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_total_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_total_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_total_length_set", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_toverlaps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_traj_geog_bearing", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_traj_geog_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_transform", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_ttouches", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_turn_seq", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_twithin_polygon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_upper_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_upsample", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_utm_zone", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_v_stats", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_value_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_vmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_vmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_within_polygon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_x_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_xmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_xmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_y_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_ymax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tgeompoint_ymin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "timeset_gaps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "timeset_to_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_abs", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_add", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_add_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_always_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_always_eq_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_always_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_always_gt_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_always_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_always_lt_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_at_max", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_at_min", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_at_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_at_range", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_at_tbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_at_value", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_at_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_bitwise_and", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_bitwise_or", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_bitwise_xor", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_clamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_consecutive_diff", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_cube", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_cumsum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_delete_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_delete_time", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_detect_anomalies_iqr", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_detect_anomalies_zscore", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_diff", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_div", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_div_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_downsample", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_end_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_ever_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_ever_eq_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_ever_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_ever_gt_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_ever_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_ever_lt_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_exponential_smooth", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_from_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_from_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_gcd", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_insert", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_instant_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_instant_from_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_instant_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_instant_n_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_instant_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_integral", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_interpolation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_iqr", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_kurtosis", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lcm", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lift_between", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lift_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lift_ge", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lift_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lift_le", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lift_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lift_ne", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_lower_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_max", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_max_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_max_value_scalar", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_max_value_wit", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_mean", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_mean_f64", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_median", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_merge", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_min", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_min_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_min_value_scalar", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_min_value_wit", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_minus_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_minus_range", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_minus_tbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_minus_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_minus_value", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_minus_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_mod", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_mod_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_moving_average", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_mul", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_mul_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_negate", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_num_anomalies", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_num_instants_wit", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_num_segments", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_percentile", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_pow", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_range", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_range_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_resample_to_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_rolling_mean", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_rolling_stddev", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_rolling_variance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_intersection", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_minus", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_num_sequences", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_sequence_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_symdiff", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_seqset_value_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_sequence_to_tfloat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_sign", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_skewness", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_square", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_start_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_statistics", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_stddev", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_sub", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_sub_scalar", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_sum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tbox", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tbox_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tbox_tmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tbox_tmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tbox_vmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tbox_vmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_avg", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_ge", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_le", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_median", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_ne", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_stddev", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_temporal_variance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_time_bucket", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_time_split_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_time_split_nth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_timestamp_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_to_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_to_json", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_to_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_to_tbool", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_to_tfloat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tunion_avg", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tunion_max", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tunion_min", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_tunion_sum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_twavg", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_twcount", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_twmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_twmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_twstddev", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_twsum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_twvariance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_update", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_upper_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_upsample", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_value_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_value_bucket_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_value_bucket_index", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_value_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_value_split_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_value_split_nth", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_variance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_wcount", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_when_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_when_ge", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_when_gt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_when_le", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_when_lt", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_when_ne", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_wmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_wmedian", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_wmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_wpercentile", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tint_wsum", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tintrange_always_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tintrange_ever_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tintrange_from_bounds", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tintrange_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tintrange_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tintrange_width", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_at_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_at_position_range", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_avg_network_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_avg_position", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_cumulative_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_detect_stops", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_end_position", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_inst_new", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_interpolate", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_is_backward", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_is_forward", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_is_single_route", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_match_quality", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_max_position", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_min_position", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_network_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_network_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_num_route_changes", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_num_routes", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_num_stops", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_position_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_positions", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_route", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_route_id", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_routes", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_scale", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_scale_time", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_seq_from_inst", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_shift_time", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_simplify", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_start_position", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_stop_duration", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tnpoint_to_geometry", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "total_cost", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_angular_acceleration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_angular_distance_to_pose", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_angular_velocity", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_at_period", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_avg_orientation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_compute_heading_from_movement", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_curvature", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_distance", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_distance_to_point", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_distance_to_pose", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_get_orientation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_get_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_get_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_heading_degrees", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_inst_new", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_linear_acceleration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_linear_speed", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_nearest_approach", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_nearest_approach_point", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_path_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_pose_at_orientation", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_pose_at_x", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_pose_at_y", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_seq_from_inst", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_to_tgeompoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_total_rotation", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tpose_value_at", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "traj1_id", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "traj2_id", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "trajectory_ids", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_from_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_len", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_make", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_nth", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_num_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_scale", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_successor", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_timestamp_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_to_text", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzset_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_adjacent", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_contains", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_contains_span", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_end", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_expand", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_intersection", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_make", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_midpoint", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_minus", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_overlaps", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_scale", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_shift", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_start", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "tstzspan_union", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_always_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_at_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_at_value", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_btrim", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_char_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_concat", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_concat_seqs", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_concat_str", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_contains", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_duration", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_end_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_end_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_ends_with", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_ever_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_from_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_from_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_ilike", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_instant_from_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_instant_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_instant_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_left", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_like", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_longest_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_lower", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_lower_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_lpad", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_ltrim", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_max_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_min_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_minus_period", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_minus_value", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_num_instants", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_num_instants_scalar", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_prepend_str", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_regex_match", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_regex_replace", 3, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_repeat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_replace", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_reverse", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_right", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_rpad", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_rtrim", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_shift", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_shortest_length", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_start_timestamp", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_start_value", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_starts_with", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_substr", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_time_span", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_timestamp_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_timestamps", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_to_csv", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_to_ewkt", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_to_json", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_to_mfjson", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_total_char_count", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_trim", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_upper_inclusive", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_value_at", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_value_n", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_when_eq", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "ttext_when_ne", 2, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "twed_distance", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "twed_distance_normalized", 4, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "upper", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "utm_epsg_for_point", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "utm_zone_for_point", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "values", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "vmax", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "vmin", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "web_mercator_to_wgs84_lat", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "web_mercator_to_wgs84_lon", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "wgs84_to_web_mercator_x", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
-    register_scalar(conn, "wgs84_to_web_mercator_y", 1, FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8)?;
+    register_scalar(
+        conn,
+        "acceleration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "angle",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "angular_diff",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "average_frechet_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "avg_position",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "avg_sampling_rate_us",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bearing",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bearing_after",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bearing_before",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bidirectional",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_as_of",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_count_current",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_count_superseded",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_current",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_ever_valid_during_count",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_history_at_count",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_inst_new",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_seq_from_inst",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_transaction_extent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_valid_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_valid_during_count",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_bool_valid_extent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_as_of",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_count_current",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_count_superseded",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_current",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_ever_valid_during_count",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_history_at_count",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_inst_new",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_seq_from_inst",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_transaction_extent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_valid_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_valid_during_count",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_float_valid_extent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_as_of",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_count_current",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_count_superseded",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_current",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_ever_valid_during_count",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_history_at_count",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_inst_new",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_seq_from_inst",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_transaction_extent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_valid_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_valid_during_count",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_int_valid_extent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_as_of",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_count_current",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_count_superseded",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_current",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_ever_valid_during_count",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_history_at_count",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_inst_new",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_seq_from_inst",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_transaction_extent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_valid_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_valid_during_count",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "bitemporal_text_valid_extent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "center_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "center_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "centroid_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "centroid_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "cluster_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "cluster_id",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_contains_span",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_expand",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_make",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_span_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_spanset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_spanset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_spanset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_spanset_num_spans",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_spanset_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_spanset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "date_spanset_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_from_int",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_gaps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_nth",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_successor",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_to_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dateset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_contains_span",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_expand",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_make",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespan_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_from_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_num_spans",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "datespanset_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dbscan_cluster_points",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "distance",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dtw_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "dtw_distance_normalized",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "duration_us",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "edr_distance",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "end",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "end_ts",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "end_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "end_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_contains_span",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_expand",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_make",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_span_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_spanset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_spanset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_spanset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_spanset_num_spans",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_spanset_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_spanset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "float_spanset_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_gaps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_is_disjoint",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_is_subset",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_nth",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_scale",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_to_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_bucket_list",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_contains_span",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_expand",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_make",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_midpoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_scale",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspan_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_from_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_num_spans",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "floatspanset_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "frechet_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "gap_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "geodetic_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "geometry",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "hausdorff_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "indexed_interval_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "indexed_intervals_concat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "indexed_point_xy_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "indexed_point_xyz_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "indexed_points_xy_concat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "indexed_points_xyz_concat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_contains_span",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_expand",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_make",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_span_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_spanset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_spanset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_spanset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_spanset_num_spans",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_spanset_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_spanset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "int_spanset_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_gaps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_is_disjoint",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_is_subset",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_nth",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_scale",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_to_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_bucket_list",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_contains_span",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_expand",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_make",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_scale",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspan_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_from_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_num_spans",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "intspanset_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "item",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "kmeans_cluster_points",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "latitude",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "lcss_distance",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "lcss_similarity",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "linear",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "longitude",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "max",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "max_gap_us",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "min",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "mobilitydb_blob_cmp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "mobilitydb_blob_eq",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "mobilitydb_blob_ge",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "mobilitydb_blob_gt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "mobilitydb_blob_le",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "mobilitydb_blob_lt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "network_coverage",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "network_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "network_distance_via_edges",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "network_distance_via_graph",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "network_graph_build_from_edges",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "network_shortest_path",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "network_shortest_path_via_edges",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "network_shortest_path_via_graph",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nodes",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "npoint_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "npoint_eq",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "npoint_make",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "npoint_new",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "npoint_position",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "npoint_route",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "npoint_same_route",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "npoint_to_point2d",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_end_pos",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_intersection",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_make",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_midpoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_new",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_route",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_route_eq",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_start_pos",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "nsegment_union",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "orientation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "pair_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "perimeter",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "period_bucket_list",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "period_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "period_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "periodset_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "periodset_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "periodset_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "periodset_intersection",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "periodset_minus",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "periodset_num_periods",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "periodset_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "periodset_union",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "point_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "point_transform",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "proj",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "proj_is_valid_crs",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "proj_transform",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "proj_transform_sequence",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "quality_score",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "radius",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "route_id",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "routes",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "score",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "significant",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "source",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "source_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "source_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "speed_after",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "speed_before",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "start",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "start_ts",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "start_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "start_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_center_time",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_center_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_center_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_contained_by",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_contains_point",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_expand_spatial",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_expand_temporal",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_from_spatial",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_from_temporal",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_from_tgeompoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_height",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_make",
+        6,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_same",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_scale_spatial",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_scale_temporal",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_shift_spatial",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_shift_temporal",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_spatial_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_spatially_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_temporal_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_temporally_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_tmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_tmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_transform",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_xmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_xmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_ymax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stbox_ymin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stepwise",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stindex_count_in_stbox",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stindex_entries_concat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "stindex_entry_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "target",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "target_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "target_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_always_false",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_always_true",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_and",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_and_all",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_at_false",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_at_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_at_true",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_at_value",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_count_changes",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_count_false",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_count_true",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_duration_false",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_duration_true",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_end_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_ever_false",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_ever_true",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_from_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_from_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_implies",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_instant_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_instant_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_instant_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_lower_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_minus_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_minus_value",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_n_changes",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_nand",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_nor",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_not",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_or",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_or_all",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_start_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_timestamp_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_to_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_to_json",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_to_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_to_tint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_upper_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_value_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_value_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_when_false",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_when_true",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_xnor",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbool_xor",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbox_expand",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbox_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbox_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tbox_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_always_contains_point",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_area_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_avg_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_avg_radius",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_center_path_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_contains_point_at",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_ever_contains_point",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_expand_radii",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_get_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_get_center_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_get_center_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_get_radii",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_get_radius",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_inst_new",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_intersection",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_max_radius",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_min_radius",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_overlap_region",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_radius_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_scale_radii",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_seq_from_inst",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_swept_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_to_tgeompoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_total_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_union",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_value_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_x_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tcbuffer_y_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_at_periodset",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_at_tbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_at_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_during",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_finishes",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_follows",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_index_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_meets",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_minus_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_precedes",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_set_interpolation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "temporal_starts",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_is_disjoint",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_is_subset",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_is_superset",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_max",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_min",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_symdiff",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "textset_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_abs",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_acos",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_acosh",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_add",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_add_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_always_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_always_eq_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_always_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_always_gt_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_always_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_always_lt_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_anomaly_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_anomaly_count_iqr",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_asin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_asinh",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_at_max",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_at_min",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_at_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_at_range",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_at_tbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_at_value",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_at_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_atan",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_atan2",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_atanh",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_cbrt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ceil",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_clamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_coefficient_of_variation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_copysign",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_correlation",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_cos",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_cosh",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_covariance",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_cube",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_cumsum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_degrees",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_delete_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_delete_time",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_derivative",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_derivative_wit",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_detect_anomalies_iqr",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_detect_anomalies_moving_avg",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_detect_anomalies_zscore",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_detect_periodicity",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_detect_trend",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_detrend",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_diff",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_div",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_div_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_downsample",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ema",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_end_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_entropy",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ever_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ever_eq_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ever_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ever_gt_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ever_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ever_lt_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_exp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_exp2",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_expm1",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_exponential_smooth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_fill_gaps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_floor",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_forecast_linear",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_fract",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_from_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_from_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_gaussian_smooth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_hypot",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_insert",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_instant_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_instant_from_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_instant_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_instant_n_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_instant_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_integral",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_interpolation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_iqr",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_is_decreasing",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_is_increasing",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_kalman_smooth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_kurtosis",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_level_crossing_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_lift_between",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_lift_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_lift_ge",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_lift_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_lift_le",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_lift_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_lift_ne",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ln",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_ln1p",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_log10",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_log2",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_log_base",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_lower_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_max",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_max_element",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_max_scalar",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_max_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_max_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_max_value_wit",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_mean",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_median",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_merge",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_min",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_min_element",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_min_scalar",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_min_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_min_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_min_value_wit",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_minus_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_minus_range",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_minus_tbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_minus_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_minus_value",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_minus_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_mod_scalar",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_moving_average",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_mul",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_mul_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_n_level_crossings",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_n_peaks",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_n_valleys",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_n_zero_crossings",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_negate",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_normalize",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_num_anomalies",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_num_instants_wit",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_num_segments",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_pct",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_pct_change",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_peak_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_percentile",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_pow",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_precision",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_radians",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_range",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_recip",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_remove_outliers",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_resample_to_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_rolling_mean",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_rolling_stddev",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_rolling_variance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_round",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_sample_entropy",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_second_derivative",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_segments_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_intersection",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_minus",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_num_sequences",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_sequence_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_symdiff",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_seqset_value_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_set_interpolation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_shift_scale_time",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_sign",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_signum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_sin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_sinh",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_skewness",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_sqrt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_square",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_start_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_statistics",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_stddev",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_sub",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_sub_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_sum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tan",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tanh",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tbox_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tbox_tmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tbox_tmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tbox_value_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tbox_vmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tbox_vmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_correlation",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_covariance",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_ge",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_le",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_median",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_ne",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_stddev",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_temporal_variance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_time_bucket",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_time_bucket_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_time_split_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_time_split_nth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_timestamp_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_to_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_to_json",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_to_linear",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_to_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_to_stepwise",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_to_tint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_trend_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_trend_segment_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_trend_slope",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_trunc",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tunion_avg",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tunion_max",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tunion_min",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_tunion_sum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_twavg",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_twcount",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_twmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_twmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_twstddev",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_twsum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_twvariance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_update",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_upper_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_upsample",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_valley_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_value_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_value_bucket_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_value_bucket_index",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_value_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_value_split_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_value_split_nth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_variance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_wcount",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_when_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_when_ge",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_when_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_when_le",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_when_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_when_ne",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_wmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_wmedian",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_wmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_wpercentile",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_wsum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_zero_crossing_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloat_zscore",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloatrange_always_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloatrange_ever_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloatrange_from_bounds",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloatrange_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloatrange_midpoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloatrange_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tfloatrange_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_always_dwithin_point_geodetic",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_at_stbox",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_avg_speed_geodetic",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_azimuth_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_azimuth_geodetic",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_distance_to_point",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_distance_to_point_seq",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_dwithin_point_geodetic",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_end_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_getlat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_getlon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_instant_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_lat_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_latitude_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_length_geodetic",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_lon_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_longitude_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_max_distance_to_point_geodetic",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_min_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_min_distance_to_point_geodetic",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_minus_stbox",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_num_stops",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_num_turns",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_speed_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_speed_geodetic",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_start_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_tdisjoint_point_geodetic",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_tintersects_point_geodetic",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_to_tgeompoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeogpoint_value_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_always_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_at_spatial_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_at_spatial_intersects",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_at_spatial_within",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_avg_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_bounding_box",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_centroid",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_dominant_type",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_ever_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_ever_intersects",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_ever_within",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_get_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_get_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_is_homogeneous",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_max_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_min_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_simplify",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_tarea",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_tlength",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_to_tgeompoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_total_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_total_coords",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeometry_type",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_altitude",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_altitude_profile",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_altitude_range",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_at_point",
+        5,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_at_stbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_avg_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_avg_speed_3d",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_azimuth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_centroid",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_climb_rate",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_cumulative_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_descent_rate",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_distance_to_point",
+        5,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_dtw_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_elevation_gain",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_elevation_loss",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_end_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_frechet_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_from_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_getx",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_gety",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_getz",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_hausdorff_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_inst_new",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_instant_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_length_2d",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_length_3d",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_max_altitude",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_min_altitude",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_minus_point",
+        5,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_minus_stbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_pitch",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_planar_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_project_to_2d",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_seq_from_inst",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_simplify",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_speed_3d",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_start_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_stbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_to_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_total_climb",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_total_descent",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_value_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_value_at_x",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_value_at_y",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_value_at_z",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_vertical_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_x_coords",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_y_coords",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint3d_z_coords",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_acceleration_count",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_acceleration_event_count",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_acceleration_events",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_angular_difference",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_at_geometry",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_at_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_at_point",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_at_points",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_at_stbox",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_avg_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_azimuth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_bearing",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_bearing_seq",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_bounding_box",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_bounds_detailed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_buffer_polygon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_center_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_center_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_centroid",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_centroid_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_centroid_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_cluster_count_dbscan",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_cluster_dbscan",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_cluster_kmeans",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_convex_hull_area",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_cpa_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_cpa_time",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_cum_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_cumulative_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_delete_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_detect_loops",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_detect_stops",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_detect_turns",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_detect_u_turns",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_dir_seg_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_dir_stats",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_direction_segment_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_direction_stats",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_disjoint_polygon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_disjoint_trajectory",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_displacement",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_distance_at",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_distance_to_point",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_downsample",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_end_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_end_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_entirely_within",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_find_convoys",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_find_flocks",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_find_meetings",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_forecast_position",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_forecast_trajectory",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_from_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_from_geojson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_from_geojson_feature",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_from_gpx",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_from_hexewkb",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_from_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_from_web_mercator",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_full",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_full_analysis",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_geodetic_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_geodetic_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_getx",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_gety",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_height",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_instant_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_instant_from_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_instant_n_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_instant_n_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_instant_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_interpolation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_intersects_polygon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_intersects_trajectory",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_is_simple",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_is_stopped",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_kalman_smooth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_lower_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_make_simple",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_map_match",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_map_match_hmm",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_max_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_merge",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_min_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_min_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_minus_geometry",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_minus_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_minus_point",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_minus_points",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_minus_stbox",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_minus_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_movement_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_movement_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_movement_sum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_movement_summary",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_nearest_approach_between_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_nearest_approach_between_time",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_nearest_approach_distance",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_nearest_approach_instant_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_nearest_approach_instant_time",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_nearest_approach_time",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_nearest_point_on_trajectory",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_num_loops",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_num_segments",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_num_stops",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_num_turns",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_num_u_turns",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_offset_curve",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_overlaps_stbox",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_quality_metrics",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_quality_report",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_quality_score",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_remove_repeated_points",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_resample_to_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_intersection",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_minus",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_num_sequences",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_sequence_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_seqset_symdiff",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_shortest_line_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_simplify",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_simplify_semantic",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_simplify_to_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_simplify_visvalingam",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_sinuosity",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_speed_seg_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_speed_segment_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_speed_stats",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_speeds",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_speeds_seq",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_srid",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_start_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_start_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_stop_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_stop_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_stop_segment_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_stop_split_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tcontains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tcovers",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tcrosses_polygon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tdisjoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tdisjoint_polygon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tdwithin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_temporal_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tequals",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_time_bucket",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_time_split_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_timestamp_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tintersects",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tintersects_polygon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_3d",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_3d_with_altitudes",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_geojson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_geojson_feature",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_geojson_feature_collection",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_gpx",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_hexewkb",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_kml",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_tgeogpoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_to_web_mercator",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tortuosity",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_tortuosity_idx",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_total_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_total_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_total_length_set",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_toverlaps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_traj_geog_bearing",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_traj_geog_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_transform",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_ttouches",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_turn_seq",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_twithin_polygon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_upper_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_upsample",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_utm_zone",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_v_stats",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_value_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_vmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_vmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_within_polygon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_x_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_xmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_xmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_y_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_ymax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tgeompoint_ymin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "timeset_gaps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "timeset_to_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_abs",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_add",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_add_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_always_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_always_eq_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_always_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_always_gt_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_always_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_always_lt_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_at_max",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_at_min",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_at_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_at_range",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_at_tbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_at_value",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_at_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_bitwise_and",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_bitwise_or",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_bitwise_xor",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_clamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_consecutive_diff",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_cube",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_cumsum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_delete_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_delete_time",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_detect_anomalies_iqr",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_detect_anomalies_zscore",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_diff",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_div",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_div_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_downsample",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_end_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_ever_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_ever_eq_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_ever_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_ever_gt_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_ever_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_ever_lt_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_exponential_smooth",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_from_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_from_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_gcd",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_insert",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_instant_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_instant_from_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_instant_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_instant_n_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_instant_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_integral",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_interpolation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_iqr",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_kurtosis",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lcm",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lift_between",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lift_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lift_ge",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lift_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lift_le",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lift_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lift_ne",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_lower_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_max",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_max_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_max_value_scalar",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_max_value_wit",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_mean",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_mean_f64",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_median",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_merge",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_min",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_min_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_min_value_scalar",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_min_value_wit",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_minus_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_minus_range",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_minus_tbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_minus_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_minus_value",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_minus_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_mod",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_mod_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_moving_average",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_mul",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_mul_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_negate",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_num_anomalies",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_num_instants_wit",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_num_segments",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_percentile",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_pow",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_range",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_range_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_resample_to_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_rolling_mean",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_rolling_stddev",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_rolling_variance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_intersection",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_minus",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_num_sequences",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_sequence_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_symdiff",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_seqset_value_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_sequence_to_tfloat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_sign",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_skewness",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_square",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_start_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_statistics",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_stddev",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_sub",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_sub_scalar",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_sum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tbox",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tbox_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tbox_tmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tbox_tmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tbox_vmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tbox_vmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_avg",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_ge",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_le",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_median",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_ne",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_stddev",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_temporal_variance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_time_bucket",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_time_split_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_time_split_nth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_timestamp_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_to_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_to_json",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_to_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_to_tbool",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_to_tfloat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tunion_avg",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tunion_max",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tunion_min",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_tunion_sum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_twavg",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_twcount",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_twmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_twmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_twstddev",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_twsum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_twvariance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_update",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_upper_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_upsample",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_value_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_value_bucket_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_value_bucket_index",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_value_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_value_split_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_value_split_nth",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_variance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_wcount",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_when_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_when_ge",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_when_gt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_when_le",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_when_lt",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_when_ne",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_wmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_wmedian",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_wmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_wpercentile",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tint_wsum",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tintrange_always_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tintrange_ever_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tintrange_from_bounds",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tintrange_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tintrange_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tintrange_width",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_at_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_at_position_range",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_avg_network_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_avg_position",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_cumulative_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_detect_stops",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_end_position",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_inst_new",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_interpolate",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_is_backward",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_is_forward",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_is_single_route",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_match_quality",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_max_position",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_min_position",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_network_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_network_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_num_route_changes",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_num_routes",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_num_stops",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_position_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_positions",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_route",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_route_id",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_routes",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_scale",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_scale_time",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_seq_from_inst",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_shift_time",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_simplify",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_start_position",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_stop_duration",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tnpoint_to_geometry",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "total_cost",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_angular_acceleration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_angular_distance_to_pose",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_angular_velocity",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_at_period",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_avg_orientation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_compute_heading_from_movement",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_curvature",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_distance",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_distance_to_point",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_distance_to_pose",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_get_orientation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_get_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_get_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_heading_degrees",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_inst_new",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_linear_acceleration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_linear_speed",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_nearest_approach",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_nearest_approach_point",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_path_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_pose_at_orientation",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_pose_at_x",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_pose_at_y",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_seq_from_inst",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_to_tgeompoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_total_rotation",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tpose_value_at",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "traj1_id",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "traj2_id",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "trajectory_ids",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_len",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_make",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_nth",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_num_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_scale",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_successor",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_timestamp_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzset_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_adjacent",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_contains",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_contains_span",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_end",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_expand",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_intersection",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_make",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_midpoint",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_minus",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_overlaps",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_scale",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_shift",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_start",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspan_union",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_always_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_at_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_at_value",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_btrim",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_char_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_concat",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_concat_seqs",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_concat_str",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_contains",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_duration",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_end_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_end_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_ends_with",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_ever_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_from_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_from_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_ilike",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_instant_from_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_instant_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_instant_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_left",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_like",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_longest_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_lower",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_lower_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_lpad",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_ltrim",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_max_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_min_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_minus_period",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_minus_value",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_num_instants",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_num_instants_scalar",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_prepend_str",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_regex_match",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_regex_replace",
+        3,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_repeat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_replace",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_reverse",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_right",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_rpad",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_rtrim",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_shift",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_shortest_length",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_start_timestamp",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_start_value",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_starts_with",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_substr",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_time_span",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_timestamp_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_timestamps",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_to_csv",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_to_ewkt",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_to_json",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_to_mfjson",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_total_char_count",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_trim",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_upper_inclusive",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_value_at",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_value_n",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_when_eq",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "ttext_when_ne",
+        2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "twed_distance",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "twed_distance_normalized",
+        4,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "upper",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "utm_epsg_for_point",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "utm_zone_for_point",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "values",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "vmax",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "vmin",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "web_mercator_to_wgs84_lat",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "web_mercator_to_wgs84_lon",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "wgs84_to_web_mercator_x",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "wgs84_to_web_mercator_y",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
     // Phase 2: 1548 canonical + 0 alias names registered.
     Ok(())
 }
@@ -1601,14 +9341,18 @@ fn register_scalar(
 ) -> Result<()> {
     // Resolve once at registration time. If the shim doesn't
     // know this name, fail fast rather than at first call.
-    let def: Arc<dyn ScalarFunctionDef> = registry::lookup_scalar(sql_name)
-        .ok_or_else(|| rusqlite::Error::UserFunctionError(
-            format!("scalar `{sql_name}` not registered by the shim").into()
-        ))?;
+    let def: Arc<dyn ScalarFunctionDef> = registry::lookup_scalar(sql_name).ok_or_else(|| {
+        rusqlite::Error::UserFunctionError(
+            format!("scalar `{sql_name}` not registered by the shim").into(),
+        )
+    })?;
 
-    conn.create_scalar_function(sql_name, arity, flags, move |ctx| -> Result<ToSqlOutput<'static>> {
-        dispatch_scalar(&def, ctx)
-    })
+    conn.create_scalar_function(
+        sql_name,
+        arity,
+        flags,
+        move |ctx| -> Result<ToSqlOutput<'static>> { dispatch_scalar(&def, ctx) },
+    )
 }
 
 /// Per-call dispatcher: marshal sqlite args → FunctionValue,
@@ -1652,9 +9396,7 @@ pub(crate) fn value_ref_to_function_value(v: ValueRef<'_>) -> FunctionValue {
         ValueRef::Null => FunctionValue::Null,
         ValueRef::Integer(i) => FunctionValue::Int64(i),
         ValueRef::Real(f) => FunctionValue::Float64(f),
-        ValueRef::Text(b) => FunctionValue::String(
-            String::from_utf8_lossy(b).into_owned()
-        ),
+        ValueRef::Text(b) => FunctionValue::String(String::from_utf8_lossy(b).into_owned()),
         ValueRef::Blob(b) => FunctionValue::Binary(b.to_vec()),
     }
 }
@@ -1681,9 +9423,8 @@ pub(crate) fn function_value_to_tosql(v: FunctionValue) -> ToSqlOutput<'static> 
         // representation. Serialize as JSON text for now —
         // callers can ROUND_TRIP through json_extract.
         other => Value::Text(
-            serde_json::to_string(&other).unwrap_or_else(|_| "<unrepresentable>".into())
+            serde_json::to_string(&other).unwrap_or_else(|_| "<unrepresentable>".into()),
         ),
     };
     ToSqlOutput::Owned(value)
 }
-

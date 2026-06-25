@@ -8422,6 +8422,12 @@ pub fn register_all(conn: &Connection) -> Result<()> {
     )?;
     register_scalar(
         conn,
+        "tstzspan_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
         "tstzspan_intersection",
         2,
         FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
@@ -8470,8 +8476,26 @@ pub fn register_all(conn: &Connection) -> Result<()> {
     )?;
     register_scalar(
         conn,
+        "tstzspan_to_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
         "tstzspan_union",
         2,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspanset_from_text",
+        1,
+        FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
+    )?;
+    register_scalar(
+        conn,
+        "tstzspanset_to_text",
+        1,
         FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
     )?;
     register_scalar(
@@ -8930,7 +8954,7 @@ pub fn register_all(conn: &Connection) -> Result<()> {
         1,
         FunctionFlags::SQLITE_DETERMINISTIC | FunctionFlags::SQLITE_UTF8,
     )?;
-    // Phase 2: 1482 canonical + 0 alias names registered.
+    // Phase 2: 1486 canonical + 0 alias names registered.
     Ok(())
 }
 
